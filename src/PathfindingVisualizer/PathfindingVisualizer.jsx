@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
 import { dijkstra, getNodesInShortestPathOrder } from "../algorithms/dijkstra";
+import { astar } from "../algorithms/astar";
+import { bfs } from "../algorithms/bfs";
+import { dfs } from "../algorithms/dfs";
+import { dfsh } from "../algorithms/dfsh";
 
 import "./PathfindingVisualizer.css";
 
@@ -16,6 +20,46 @@ export default class PathfindingVisualizer extends Component {
       grid: [],
       mouseIsPressed: false,
     };
+  }
+
+  clearGrid() {
+    const newGrid = this.state.grid.slice();
+    for (const row of newGrid) {
+      for (const node of row) {
+        let nodeClassName = document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).className;
+        if (
+          nodeClassName !== "node node-start" &&
+          nodeClassName !== "node node-finish" &&
+          nodeClassName !== "node node-wall"
+        ) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node";
+          node.isVisited = false;
+          node.distance = Infinity;
+          node.distanceToFinishNode =
+            Math.abs(FINISH_NODE_ROW - node.row) +
+            Math.abs(FINISH_NODE_COL - node.col);
+        }
+        if (nodeClassName === "node node-finish") {
+          node.isVisited = false;
+          node.distance = Infinity;
+          node.distanceToFinishNode = 0;
+          node.isFinish = true;
+        }
+        if (nodeClassName === "node node-start") {
+          node.isVistied = false;
+          node.distance = Infinity;
+          node.distanceToFinishNode =
+            Math.abs(FINISH_NODE_ROW - node.row) +
+            Math.abs(FINISH_NODE_COL - node.col);
+          node.isStart = true;
+          node.isWall = false;
+          node.previousNode = null;
+        }
+      }
+    }
   }
 
   componentDidMount() {
@@ -38,7 +82,7 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ mouseIsPressed: false });
   }
 
-  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
@@ -48,38 +92,87 @@ export default class PathfindingVisualizer extends Component {
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-visited";
+        const nodeClassName = document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).className;
+        if (
+          nodeClassName !== "node node-start" &&
+          nodeClassName !== "node node-finish"
+        ) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-visited";
+        }
       }, 10 * i);
     }
+  }
+
+  visualizeAlgorithm(algorithm) {
+    const { grid } = this.state;
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    let visitedNodesInOrder;
+    switch (algorithm) {
+      case "dijkstra":
+        visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+        break;
+      case "astar":
+        visitedNodesInOrder = astar(grid, startNode, finishNode);
+        break;
+      case "bfs":
+        visitedNodesInOrder = bfs(grid, startNode, finishNode);
+        break;
+      case "dfs":
+        visitedNodesInOrder = dfs(grid, startNode, finishNode);
+        break;
+      case "dfsh":
+        visitedNodesInOrder = dfsh(grid, startNode, finishNode);
+        break;
+      default:
+        visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+        break;
+    }
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-shortest-path";
+        const nodeClassName = document.getElementById(
+          `node-${node.row}-${node.col}`
+        ).className;
+        if (
+          nodeClassName !== "node node-start" &&
+          nodeClassName !== "node node-finish"
+        ) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-shortest-path";
+        }
       }, 50 * i);
     }
-  }
-
-  visualizeDijkstra() {
-    const { grid } = this.state;
-    const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   render() {
     const { grid, mouseIsPressed } = this.state;
     return (
       <>
-        <button onClick={() => this.visualizeDijkstra()}>
+        <button onClick={() => this.visualizeAlgorithm("dijkstra")}>
           Visualize Dijkstra's Algorithm
         </button>
+        <button onClick={() => this.visualizeAlgorithm("astar")}>
+          Visualize Astar Algorithm
+        </button>
+        <button onClick={() => this.visualizeAlgorithm("bfs")}>
+          Breadth First Search
+        </button>
+        <button onClick={() => this.visualizeAlgorithm("dfs")}>
+          Depth First Search
+        </button>
+        <button onClick={() => this.visualizeAlgorithm("dfsh")}>
+          Depth First Search - Height
+        </button>
+        <button onClick={() => this.clearGrid()}>Clear</button>
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
@@ -134,6 +227,8 @@ const createNode = (col, row) => {
     isVisited: false,
     isWall: false,
     previousNode: null,
+    distanceToFinishNode:
+      Math.abs(FINISH_NODE_ROW - row) + Math.abs(FINISH_NODE_COL - col),
   };
 };
 
