@@ -1,8 +1,6 @@
 import React from "react";
 import "./App.css";
-import PathfindingVisualizer from "./PathfindingVisualizer/PathfindingVisualizer";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import SortingVisualizer from "./SortingVisualizer/SortingVisualizer";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
@@ -19,12 +17,17 @@ function App() {
     <div className="App">
       <button onClick={navigatePathFinding}>Path Finding</button>
       <button onClick={navigateSorting}>Sorting</button>
-      <Routes>
-        <Route path="/pathFinding" element={<PathfindingVisualizer />} />
-        <Route path="/sorting" element={<SortingVisualizer />} />
-      </Routes>
     </div>
   );
 }
 
 export default App;
+
+{
+  /* <BrowserRouter>
+<Routes>
+   <Route path="/pathFinding" element={<PathfindingVisualizer />} />
+   <Route path="/sorting" element={<SortingVisualizer />} />
+</Routes>
+</BrowserRouter> */
+}

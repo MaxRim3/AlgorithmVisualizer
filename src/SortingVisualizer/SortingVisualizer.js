@@ -1,3 +1,38 @@
+import React, { Component } from "react";
+import SortVisualizerOrganism from "./components/organisms/SortVisualizerOrganism";
+import BubbleSort, {
+  BubbleSortKey,
+  BubbleSortDesc,
+} from "../algorithms/sorting/BubbleSort";
+import SelectionSort, {
+  SelectionSortKey,
+  SelectionSortDesc,
+} from "../algorithms/sorting/SelectionSort";
+import InsertionSort, {
+  InsertionSortKey,
+  InsertionSortDesc,
+} from "../algorithms/sorting/InsertionSort";
+import MergeSort, {
+  MergeSortKey,
+  MergeSortDesc,
+} from "../algorithms/sorting/MergeSort";
+import QuickSort, {
+  QuickSortKey,
+  QuickSortDesc,
+} from "../algorithms/sorting/QuickSort";
+import QuickSort3, {
+  QuickSort3Key,
+  QuickSort3Desc,
+} from "../algorithms/sorting/QuickSort3";
+import HeapSort, {
+  HeapSortKey,
+  HeapSortDesc,
+} from "../algorithms/sorting/HeapSort";
+import ShellSort, {
+  ShellSortKey,
+  ShellSortDesc,
+} from "../algorithms/sorting/ShellSort";
+
 class SortingVisualizer extends Component {
   state = {
     array: [],
@@ -27,6 +62,17 @@ class SortingVisualizer extends Component {
     "Quick Sort 3": QuickSort3Key,
     "Heap Sort": HeapSortKey,
     "Shell Sort": ShellSortKey,
+  };
+
+  ALGORITHM_DESC = {
+    "Bubble Sort": BubbleSortDesc,
+    "Selection Sort": SelectionSortDesc,
+    "Insertion Sort": InsertionSortDesc,
+    "Merge Sort": MergeSortDesc,
+    "Quick Sort": QuickSortDesc,
+    "Quick Sort 3": QuickSort3Desc,
+    "Heap Sort": HeapSortDesc,
+    "Shell Sort": ShellSortDesc,
   };
 
   componentDidMount() {
@@ -70,4 +116,24 @@ class SortingVisualizer extends Component {
       this.setState({ trace });
     }
   };
+
+  renter() {
+    const colorKey = this.ALGORITHM_KEY[this.state.algorithm];
+    const desc = this.ALGORITHM_DESC[this.state.algorithm];
+
+    return (
+      <div>
+        <main className="App__Body">
+          <SortVisualizerOrganism
+            array={this.state.array}
+            trace={this.state.trace}
+            colorKey={colorKey}
+            desc={desc}
+          ></SortVisualizerOrganism>
+        </main>
+      </div>
+    );
+  }
 }
+
+export default SortingVisualizer;
