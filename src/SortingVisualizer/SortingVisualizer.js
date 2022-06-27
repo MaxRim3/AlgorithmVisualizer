@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SortVisualizerOrganism from "./components/organisms/SortVisualizerOrganism";
+import SortVisualizerOrganism from "./components/organisms/SortVisualizer/index";
 import BubbleSort, {
   BubbleSortKey,
   BubbleSortDesc,

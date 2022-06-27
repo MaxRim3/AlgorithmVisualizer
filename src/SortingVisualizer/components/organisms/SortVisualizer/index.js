@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./style.css";
-import { SortChart } from "../SortChart/index";
+import SortChart from "../SortChart/index";
+import VisualizerControls from "../../molecules/VisualizerControls";
+import ColorKey from "../../molecules/ColorKey";
+import SortInfo from "../../molecules/SortInfo";
 
 class SortVisualizerOrganism extends Component {
   state = {
