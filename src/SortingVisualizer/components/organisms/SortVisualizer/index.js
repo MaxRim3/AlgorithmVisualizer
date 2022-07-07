@@ -135,7 +135,7 @@ class SortVisualizerOrganism extends Component {
     });
   };
 
-  return() {
+  render() {
     return (
       <div className="SortVisualizerOrganism">
         <SortChart

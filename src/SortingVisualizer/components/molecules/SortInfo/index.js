@@ -42,9 +42,15 @@ const SortInfo = ({
                   <code>{bestCase}</code>
                 </td>
               </tr>
+              <tr>
+                <td>Average-case time complexity</td>
+                <td>
+                  <code>{avgCase}</code>
+                </td>
+              </tr>
 
               <tr>
-                <td>Worst-case space complexity</td>
+                <td>Space complexity</td>
                 <td>
                   <code>{space}</code>
                 </td>

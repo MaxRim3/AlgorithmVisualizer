@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SortVisualizerOrganism from "./components/organisms/SortVisualizer/index";
+import AppControls from "./components/molecules/AppControls";
 import BubbleSort, {
   BubbleSortKey,
   BubbleSortDesc,
@@ -33,8 +34,15 @@ import ShellSort, {
   ShellSortDesc,
 } from "../algorithms/sorting/ShellSort";
 
+import AppDrawer from "./components/organisms/AppDrawer";
+import TopBar from "./components/organisms/TopBar";
+
+import "./App.css";
+import "./AppDark.css";
+
 class SortingVisualizer extends Component {
   state = {
+    darkMode: false,
     array: [],
     arraySize: 10,
     trace: [],
@@ -117,12 +125,49 @@ class SortingVisualizer extends Component {
     }
   };
 
-  renter() {
+  toggleDarkMode = () => {
+    this.setState((prevState) => ({ darkMode: !prevState.darkMode }));
+  };
+
+  toggleAppDrawer = () => {
+    this.setState((prevState) => ({
+      appDrawerOpen: !prevState.appDrawerOpen,
+    }));
+  };
+
+  render() {
+    let theme = ` App`;
+    if (this.state.darkMode) theme += ` App_dark`;
+    if (this.state.appDrawerOpen) theme += ` App_modal_open`;
     const colorKey = this.ALGORITHM_KEY[this.state.algorithm];
     const desc = this.ALGORITHM_DESC[this.state.algorithm];
 
+    const controls = (
+      <AppControls
+        onGenerateRandomArray={this.generateRandomArray}
+        algorithm={this.state.algorithm}
+        onAlgorithmChange={this.handleAlgorithmChange}
+        arraySize={this.state.arraySize}
+        onArraySizeChange={this.handleArraySizeChange}
+        onToggleDarkMode={this.toggleDarkMode}
+        darkMode={this.state.darkMode}
+      ></AppControls>
+    );
+
     return (
       <div>
+        <TopBar
+          drawerOpen={this.state.appDrawerOpen}
+          toggleDrawer={this.toggleAppDrawer}
+        >
+          {controls}
+        </TopBar>
+        <AppDrawer
+          open={this.state.appDrawerOpen}
+          closeDrawer={this.toggleAppDrawer}
+        >
+          {controls}
+        </AppDrawer>
         <main className="App__Body">
           <SortVisualizerOrganism
             array={this.state.array}

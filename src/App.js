@@ -22,12 +22,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <BrowserRouter>
-<Routes>
-   <Route path="/pathFinding" element={<PathfindingVisualizer />} />
-   <Route path="/sorting" element={<SortingVisualizer />} />
-</Routes>
-</BrowserRouter> */
-}
