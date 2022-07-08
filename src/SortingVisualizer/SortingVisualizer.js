@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SortVisualizerOrganism from "./components/organisms/SortVisualizer/index";
 import AppControls from "./components/molecules/AppControls";
+import Footer from "./components/molecules/Footer";
 import BubbleSort, {
   BubbleSortKey,
   BubbleSortDesc,
@@ -37,8 +38,8 @@ import ShellSort, {
 import AppDrawer from "./components/organisms/AppDrawer";
 import TopBar from "./components/organisms/TopBar";
 
-import "./App.css";
-import "./AppDark.css";
+import "./SortingVisualizer.css";
+import "./SortingVisualizerDark.css";
 
 class SortingVisualizer extends Component {
   state = {
@@ -139,6 +140,7 @@ class SortingVisualizer extends Component {
     let theme = ` App`;
     if (this.state.darkMode) theme += ` App_dark`;
     if (this.state.appDrawerOpen) theme += ` App_modal_open`;
+
     const colorKey = this.ALGORITHM_KEY[this.state.algorithm];
     const desc = this.ALGORITHM_DESC[this.state.algorithm];
 
@@ -155,7 +157,7 @@ class SortingVisualizer extends Component {
     );
 
     return (
-      <div>
+      <div className={theme}>
         <TopBar
           drawerOpen={this.state.appDrawerOpen}
           toggleDrawer={this.toggleAppDrawer}
@@ -176,6 +178,7 @@ class SortingVisualizer extends Component {
             desc={desc}
           ></SortVisualizerOrganism>
         </main>
+        <Footer />
       </div>
     );
   }
