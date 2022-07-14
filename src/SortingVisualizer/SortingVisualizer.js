@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SortVisualizerOrganism from "./components/organisms/SortVisualizer/index";
+import SortVisualizerOrganism from "./components/organisms/SortVisualizerOrganism/index";
 import AppControls from "./components/molecules/AppControls";
 import Footer from "./components/molecules/Footer";
 import BubbleSort, {
@@ -137,7 +137,7 @@ class SortingVisualizer extends Component {
   };
 
   render() {
-    let theme = ` App`;
+    let theme = `App`;
     if (this.state.darkMode) theme += ` App_dark`;
     if (this.state.appDrawerOpen) theme += ` App_modal_open`;
 

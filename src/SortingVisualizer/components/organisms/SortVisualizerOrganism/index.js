@@ -4,6 +4,7 @@ import SortChart from "../SortChart/index";
 import VisualizerControls from "../../molecules/VisualizerControls";
 import ColorKey from "../../molecules/ColorKey";
 import SortInfo from "../../molecules/SortInfo";
+import ProgressBar from "../../molecules/ProgressBar";
 
 class SortVisualizerOrganism extends Component {
   state = {
@@ -16,7 +17,7 @@ class SortVisualizerOrganism extends Component {
     groupB: [],
     groupC: [],
     groupD: [],
-    sortIndeces: [],
+    sortedIndices: [],
 
     timeoutIds: [],
     playbackSpeed: 1,
@@ -136,6 +137,11 @@ class SortVisualizerOrganism extends Component {
   };
 
   render() {
+    {
+      {
+        console.log(this.state.sortedIndices);
+      }
+    }
     return (
       <div className="SortVisualizerOrganism">
         <SortChart
@@ -148,8 +154,19 @@ class SortVisualizerOrganism extends Component {
           sortedIndices={this.state.sortedIndices}
         />
 
+        <div className="SortVisualizer__ProgressBar">
+          <ProgressBar
+            width={
+              this.state.trace.length > 0
+                ? (this.state.trace.traceStep / (this.state.trace.length - 1)) *
+                  100
+                : 0
+            }
+          />
+        </div>
+
         <VisualizerControls
-          OnPlay={
+          onPlay={
             this.state.traceStep === -1
               ? this.run.bind(this, this.state.trace)
               : this.continue.bind(this)

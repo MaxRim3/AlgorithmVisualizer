@@ -6,7 +6,7 @@ export const newTrace = (array) => {
       groupB: [],
       groupC: [],
       groupD: [],
-      sortedIndeces: [],
+      sortedIndices: [],
     },
   ];
 };
@@ -26,12 +26,12 @@ export const addToTrace = (
     groupB: [...groupB],
     groupC: [...groupC],
     groupD: [...groupD],
-    sortedIndeces: [...sortedIndices],
+    sortedIndices: [...sortedIndices],
   });
 };
 
 export const lastSorted = (trace) => {
-  return trace[trace.length - 1].sortedIndeces;
+  return trace[trace.length - 1].sortedIndices;
 };
 
 export const swap = (array, i, j) => {
