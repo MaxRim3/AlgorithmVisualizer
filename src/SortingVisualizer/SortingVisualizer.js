@@ -38,6 +38,8 @@ import ShellSort, {
 import AppDrawer from "./components/organisms/AppDrawer";
 import TopBar from "./components/organisms/TopBar";
 
+import CodeExampleTabs from './components/organisms/CodeExampleTabs';
+
 import "./SortingVisualizer.css";
 import "./SortingVisualizerDark.css";
 
@@ -177,6 +179,9 @@ class SortingVisualizer extends Component {
             colorKey={colorKey}
             desc={desc}
           ></SortVisualizerOrganism>
+          <CodeExampleTabs
+          array={this.state.array}
+          ></CodeExampleTabs>
         </main>
         <Footer />
       </div>
