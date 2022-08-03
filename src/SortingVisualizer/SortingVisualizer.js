@@ -5,7 +5,7 @@ import Footer from "./components/molecules/Footer";
 import BubbleSort, {
   BubbleSortKey,
   BubbleSortDesc,
-} from "../algorithms/sorting/BubbleSort";
+} from "../algorithms/sorting/BubbleSort/BubbleSort";
 import SelectionSort, {
   SelectionSortKey,
   SelectionSortDesc,
@@ -180,7 +180,7 @@ class SortingVisualizer extends Component {
             desc={desc}
           ></SortVisualizerOrganism>
           <CodeExampleTabs
-          array={this.state.array}
+          algorithm={this.state.algorithm}
           ></CodeExampleTabs>
         </main>
         <Footer />

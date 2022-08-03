@@ -1,6 +1,6 @@
 import React from "react";
 
-import { swap, newTrace, addToTrace, lastSorted, createKey } from "./helpers";
+import { swap, newTrace, addToTrace, lastSorted, createKey } from "../helpers";
 
 const BubbleSort = (nums) => {
   const trace = newTrace(nums);

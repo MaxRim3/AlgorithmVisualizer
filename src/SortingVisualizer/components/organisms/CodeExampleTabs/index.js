@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab } from "@mui/material";
-import { MdAirlineSeatIndividualSuite } from "react-icons/md";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import BubbleSortCSharp from "../../../../algorithms/sorting/BubbleSort/BubbleSortCSharp";
 
 class CodeExampleTabs extends Component {
   state = {
@@ -11,7 +11,32 @@ class CodeExampleTabs extends Component {
   };
 
   render() {
-    const { array } = this.props;
+    const { algorithm } = this.props;
+    switch(algorithm){
+      case "Bubble Sort":
+        switch(this.state.value)
+          {
+            case 0:
+              //get C# example
+              break;
+          }
+        break;
+      case "Selection Sort":
+        break;
+      case "Insertion Sort":
+        break;
+      case "Merge Sort":
+        break;
+      case "Quick Sort":
+        break;
+      case "Quick Sort 3":
+        break;
+      case "Heap Sort":
+        break;
+      case "Shell Sort":
+        break;
+  }
+
 
     const handleChange = (event, newValue) => {
         console.log(this.state.value);
@@ -31,8 +56,8 @@ class CodeExampleTabs extends Component {
           {...other}
         >
           {value === index && (
-            <Box sx={{ p: 3 }}>
-              <Typography>{children}</Typography>
+            <Box sx={{ p: 3 }} style={{textAlign: "left"}}>
+              <Typography component={'span'} variant={'body2'}>{children}</Typography>
             </Box>
           )}
         </div>
@@ -60,9 +85,8 @@ class CodeExampleTabs extends Component {
           <Tab label="Python" {...a11yProps(4)}/>
         </Tabs>
         <TabPanel value={this.state.value} index={0}>
-          onAdjustSpeed
+          <BubbleSortCSharp/>
         </TabPanel>
-        onAdjustSpeed
         <TabPanel value={this.state.value} index={1}>
           adjustPlaybackSpeed
         </TabPanel>
